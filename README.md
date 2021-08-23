@@ -1,6 +1,6 @@
 # Aiamg
 
-Java 3D graphics from scratch.
+Java 3D graphics from scratch using direct perspective projection.
 
 Clojure scripts to make 3D scenes.
 
