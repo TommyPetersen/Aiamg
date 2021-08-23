@@ -1,6 +1,6 @@
 # Aiamg
 
-Java 3D graphics from scratch using a natural model of the direct perspective projection (which leads to complicated formulas for computing cuts).
+Java 3D graphics from scratch using a natural model of the perspective projection (which leads to complicated formulas for computing cuts).
 
 Clojure scripts to make 3D scenes.
 
