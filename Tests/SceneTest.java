@@ -15,10 +15,10 @@ public class SceneTest{
 	//makeTestLine();
 	//makeTestLineCut();
 	//makeTestStarBlink();
-	//makeTestRectangles();
+	makeTestRectangles();
 	//doTestPolygonLinesCut();
 	//doTestPolygonN();
-	doTestTriangle();
+	//doTestTriangle();
 	//doTestDegenerateTriangle();
     }
 
@@ -71,6 +71,11 @@ public class SceneTest{
 			  1500.0);
 	cam.updateScene(lines);
 	cam.showScene();
+
+        while (true){
+	    Thread.sleep(200);
+	    System.out.println("MouseEvent on screen: " + cam.getCurrentMouseEventOnScreen());
+	}
     }
     
     private void makeTestRectangle(double x, double deltaX,

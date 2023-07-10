@@ -1,4 +1,4 @@
-(ns aiamg.demo1
+(ns aiamg.demo4
   (:use aiamg.pointCollections
         aiamg.lineCollections)
   (:import
@@ -8,7 +8,7 @@
 	(java.lang Math)
 	(Aiamg Camera Polygon3D Triangle3D Point3D Line3D)))
 
-(def camera (new Camera 10.0 200.0 800.0 800.0 1000 1000))
+(def camera (new Camera 10.0 200.0 800.0 800.0 800 800))
 
 (doto camera
 ;      (.updateTransformationByXRotation (/ Math/PI 16.0))

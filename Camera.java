@@ -1,6 +1,7 @@
 package Aiamg;
 
 import java.awt.*;
+import java.awt.event.*;
 import java.util.*;
 import Aiamg.Utils.*;
 
@@ -49,6 +50,14 @@ public class Camera{
     public ZBuffer getZBuffer(){
 	return zBuffer;
     }
+
+    public MouseEvent getCurrentMouseEventOnScreen(){
+	return screen.getCurrentMouseEvent();
+    }
+
+     public Insets getInsetsOnScreen(){
+	return screen.getInsets();
+     }
 
     public synchronized void transformationReset(){
 	double[][] a44 = new double[4][4];

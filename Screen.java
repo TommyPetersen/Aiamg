@@ -13,6 +13,8 @@ public class Screen extends Frame{
 
     Color background;
 
+    MouseEvent currentMouseEvent;
+
     Screen(int W, int H){
 	this.W = W; this.H = H;
 	setSize(W, H);
@@ -28,18 +30,26 @@ public class Screen extends Frame{
 			       }
 			       );
 
+	this.addMouseListener(
+			       new MouseAdapter(){
+				   public void mouseClicked(MouseEvent e){
+				       currentMouseEvent = e;
+				   }
+			       }
+			       );
+
 	image = createImage(W, H);
 	initScreen();
 	in = getInsets();
 	setSize(W + in.left + in.right, H + in.top + in.bottom);
 	getGraphics().drawImage(image, in.left, in.top, null);
-	setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
+	Cursor crosshairCursor = new Cursor(Cursor.CROSSHAIR_CURSOR);
 	int[] myPixels = new int[16 * 16];
-	Image thecursorimage= createImage(new MemoryImageSource(16, 16, myPixels, 0, 16));
-	Cursor hidden_cursor= (getToolkit()).createCustomCursor(thecursorimage,
-								new Point(0, 0),
+	Image thecursorimage = createImage(new MemoryImageSource(16, 16, myPixels, 0, 16));
+	Cursor hiddenCursor = (getToolkit()).createCustomCursor(thecursorimage,
+		 					        new Point(0, 0),
 								"invisiblecursor");
-	setCursor(hidden_cursor);
+	setCursor(crosshairCursor);
 	background = Color.lightGray;
 
 	repaint();
@@ -98,5 +108,11 @@ public class Screen extends Frame{
     public void paintImage(Image _image){
 	image = _image;
 	update(getGraphics());
+    }
+
+    public MouseEvent getCurrentMouseEvent(){
+	MouseEvent savedMouseEvent = currentMouseEvent;
+	currentMouseEvent = null;
+	return savedMouseEvent;
     }
 }
