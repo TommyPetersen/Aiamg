@@ -7,4 +7,4 @@
   :java-source-paths ["../../"]
   :main ^:skip-aot aiamg.core
   :target-path "target/%s"
-  :repl-options {:init-ns aiamg.core})
+  :repl-options {:init-ns aiamg.entry})
