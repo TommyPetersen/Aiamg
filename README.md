@@ -1,6 +1,5 @@
 # Aiamg
-
-Java 3D graphics from scratch using a natural model of the perspective projection (which leads to complicated formulas for computing cuts).
+Java 3D graphics from scratch.
 
 
 ## Java compile
