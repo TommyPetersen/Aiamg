@@ -15,5 +15,14 @@ Enter the command
   java Aiamg.Tests.SceneTest
 
 
+## JAR executeable "Aiamg.jar"
+Change directory to "<Aiamg_ParentDirectory>".
+Enter the command
+  jar cvmf Aiamg/META-INF/MANIFEST.MF Aiamg/Aiamg.jar Aiamg/*.class Aiamg/Tests/*.class Aiamg/Utils/*.class
 
+Advise:
+* The manifest file "Aiamg/META-INF/MANIFEST.MF" should be UTF8 encoded.
+* The last entry in the manifest file "Aiamg/META-INF/MANIFEST.MF" should end with a new line.
 
+In order to execute the jar file, change directory to "<Aiamg>" and enter the command
+  java -jar Aiamg.jar
