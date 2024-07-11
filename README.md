@@ -17,7 +17,7 @@ Enter the command
 
 ## JAR executeable "Aiamg.jar"
 Change directory to "<Aiamg_ParentDirectory>".
-Enter the command
+Enter the command  
   jar cvmf Aiamg/META-INF/MANIFEST.MF Aiamg/Aiamg.jar Aiamg/*.class Aiamg/Tests/*.class Aiamg/Utils/*.class
 
 Advise:
