@@ -24,5 +24,5 @@ Advise:
 * The manifest file "Aiamg/META-INF/MANIFEST.MF" should be UTF8 encoded.
 * The last entry in the manifest file "Aiamg/META-INF/MANIFEST.MF" should end with a new line.
 
-In order to execute the jar file, change directory to "<Aiamg>" and enter the command  
+In order to execute the jar file, change directory to "<Aiamg_Directory>" and enter the command  
   java -jar Aiamg.jar
