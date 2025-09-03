@@ -55,9 +55,13 @@ public class Camera{
 	return screen.getCurrentMouseEvent();
     }
 
-     public Insets getInsetsOnScreen(){
+    public MouseEvent getCurrentMouseMovedEventOnScreen(){
+	return screen.getCurrentMouseMovedEvent();
+    }
+
+    public Insets getInsetsOnScreen(){
 	return screen.getInsets();
-     }
+    }
 
     public synchronized void transformationReset(){
 	double[][] a44 = new double[4][4];
