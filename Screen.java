@@ -9,8 +9,6 @@ public class Screen extends Frame{
     Image image = null;
     int W = 0, H = 0;
 
-    Insets in;
-
     Color background;
 
     MouseEvent currentMouseEvent, currentMouseMovedEvent;
@@ -48,8 +46,8 @@ public class Screen extends Frame{
 
 	image = createImage(W, H);
 	initScreen();
-	in = getInsets();
-	setSize(W + in.left + in.right, H + in.top + in.bottom);
+	Insets in = getInsets();
+	setSize(W, H);
 	getGraphics().drawImage(image, in.left, in.top, null);
 	Cursor crosshairCursor = new Cursor(Cursor.CROSSHAIR_CURSOR);
 	int[] myPixels = new int[16 * 16];
@@ -71,6 +69,14 @@ public class Screen extends Frame{
 	sg.dispose();
     }
 
+    public int getW(){
+	return W;
+    }
+
+    public int getH(){
+	return H;
+    }
+
     public Image createImage(){
 	return createImage(W, H);
     }
@@ -81,6 +87,7 @@ public class Screen extends Frame{
 
     public void paint(Graphics g){
 	try{
+	    Insets in = this.getInsets();
 	    g.translate(in.left, in.top);
 	    g.drawImage(image, 0,0, null);
 	} catch(Exception e){}

@@ -63,6 +63,21 @@ public class Camera{
 	return screen.getInsets();
     }
 
+    public Point2D getPointInProjectionPlaneFromPointOnScreen(int w, int h){
+	int zBuf_i = 0;
+	int zBuf_j = 0;
+
+	int W = screen.getW();
+	int H = screen.getH();
+
+	zBuf_i = w;
+	zBuf_j = H - h - 1;
+
+        int point2d_x = (int) Math.round(((zBuf_i * ProjectionWindowWidth) / (W - 1)) - (ProjectionWindowWidth / 2.0));
+	int point2d_y = (int) Math.round(((zBuf_j * ProjectionWindowHeight) / (H - 1)) - (ProjectionWindowHeight / 2.0));
+	return new Point2D(point2d_x, point2d_y);
+    }
+
     public synchronized void transformationReset(){
 	double[][] a44 = new double[4][4];
 	a44[0][0] = 1.0; a44[0][1] = 0.0; a44[0][2] = 0.0; a44[0][3] = 0.0;
