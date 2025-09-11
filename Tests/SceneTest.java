@@ -12,12 +12,12 @@ public class SceneTest{
     Line3D line = null;
 
     public SceneTest() throws Exception{
-	//makeTestLine();
+        //makeTestLine();
 	//makeTestLineCut();
 	//makeTestStarBlink();
-	makeTestRectangles();
+        //makeTestRectangles();
 	//doTestPolygonLinesCut();
-	//doTestPolygonN();
+	doTestPolygonN();
 	//doTestTriangle();
 	//doTestDegenerateTriangle();
     }

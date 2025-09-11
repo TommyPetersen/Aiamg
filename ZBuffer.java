@@ -427,12 +427,9 @@ public class ZBuffer extends Component{
 
 	boolean P0_P2IsRightSided = determinant > 0;
 	
-	if (P0_P2IsRightSided){
-	    update(lineOfRasterPointsP0_P1);
-	    update(lineOfRasterPointsP1_P2);
-	} else {
-	    update(lineOfRasterPointsP0_P2);
-	}
+	update(lineOfRasterPointsP0_P2);
+	update(lineOfRasterPointsP0_P1);
+	update(lineOfRasterPointsP1_P2);
 
 	scanConvertTriangleLinesHorizontally(lineOfRasterPointsP0_P1,
 					     lineOfRasterPointsP0_P2,

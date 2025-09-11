@@ -16,8 +16,8 @@ public class CameraTest extends Camera{
 
 	//test_valueForLine2DCrossLine2D();
 	//test_clipLine();
-	//test_transformGeom();
-	test_projectLine();
+	test_transformGeom();
+	//test_projectLine();
     }
 
     private void test_valueForLine2DCrossLine2D(){

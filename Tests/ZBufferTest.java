@@ -37,9 +37,9 @@ public class ZBufferTest extends ZBuffer{
 			  "p0 is %d\t[%s]\n" +
 			  "p1 is %d\t[%s]\n" +
 			  "p2 is %d\t[%s]\n",
-			  a0, (a0 == 10 ? "Passed" : "Failed"),
-			  a1, (a1 == 15 ? "Passed" : "Failed"),
-			  a2, (a2 == 20 ? "Passed" : "Failed")
+			  a0, (a0 == 20 ? "Passed" : "Failed"),
+			  a1, (a1 == 10 ? "Passed" : "Failed"),
+			  a2, (a2 == 15 ? "Passed" : "Failed")
 			 );
 	
 	// *** Test2 ***
@@ -57,9 +57,9 @@ public class ZBufferTest extends ZBuffer{
 			  "p0 is %d\t[%s]\n" +
 			  "p1 is %d\t[%s]\n" +
 			  "p2 is %d\t[%s]\n",
-			  a0, (a0 == 10 ? "Passed" : "Failed"),
-			  a1, (a1 == 15 ? "Passed" : "Failed"),
-			  a2, (a2 == 20 ? "Passed" : "Failed")
+			  a0, (a0 == 20 ? "Passed" : "Failed"),
+			  a1, (a1 == 10 ? "Passed" : "Failed"),
+			  a2, (a2 == 15 ? "Passed" : "Failed")
 			 );
 
 	// *** Test3 ***
@@ -77,9 +77,9 @@ public class ZBufferTest extends ZBuffer{
 			  "p0 is %d\t[%s]\n" +
 			  "p1 is %d\t[%s]\n" +
 			  "p2 is %d\t[%s]\n",
-			  a0, (a0 == 10 ? "Passed" : "Failed"),
-			  a1, (a1 == 15 ? "Passed" : "Failed"),
-			  a2, (a2 == 20 ? "Passed" : "Failed")
+			  a0, (a0 == 20 ? "Passed" : "Failed"),
+			  a1, (a1 == 10 ? "Passed" : "Failed"),
+			  a2, (a2 == 15 ? "Passed" : "Failed")
 			 );
     }
 
