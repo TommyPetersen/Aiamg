@@ -163,8 +163,11 @@ public class Camera{
     }
 
     public void clearScene() throws Exception{
-	RasterPoint[][] raster = zBuffer.clear();
-	screen.drawRaster(raster);
+	screen.drawRaster(zBuffer.clear());
+    }
+
+    public void clearRaster() throws Exception{
+	zBuffer.clear();
     }
     
     public <T> void updateScene(ArrayList<T> geoms) throws Exception{
