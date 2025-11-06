@@ -51,6 +51,10 @@ public class Camera{
 	return zBuffer;
     }
 
+    public Screen getScreen(){
+	return screen;
+    }
+
     public MouseEvent getCurrentMouseEventOnScreen(){
 	return screen.getCurrentMouseEvent();
     }
