@@ -55,14 +55,6 @@ public class Camera{
 	return screen;
     }
 
-    public MouseEvent getCurrentMouseEventOnScreen(){
-	return screen.getCurrentMouseEvent();
-    }
-
-    public MouseEvent getCurrentMouseMovedEventOnScreen(){
-	return screen.getCurrentMouseMovedEvent();
-    }
-
     public Insets getInsetsOnScreen(){
 	return screen.getInsets();
     }

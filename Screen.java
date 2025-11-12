@@ -11,8 +11,6 @@ public class Screen extends Frame{
 
     Color background;
 
-    MouseEvent currentMouseEvent, currentMouseMovedEvent;
-
     Screen(int W, int H){
 	this.W = W; this.H = H;
 	setSize(W, H);
@@ -28,21 +26,6 @@ public class Screen extends Frame{
 			       }
 			       );
 
-	this.addMouseListener(
-			       new MouseAdapter(){
-				   public void mouseClicked(MouseEvent e){
-				       currentMouseEvent = e;
-				   }
-			       }
-			       );
-
-	this.addMouseMotionListener(
-			             new MouseAdapter(){
-				         public void mouseMoved(MouseEvent e){
-				             currentMouseMovedEvent = e;
-				         }
-			             }
-			           );
 
 	image = createImage(W, H);
 	initScreen();
@@ -123,17 +106,5 @@ public class Screen extends Frame{
     public void paintImage(Image _image){
 	image = _image;
 	update(getGraphics());
-    }
-
-    public MouseEvent getCurrentMouseEvent(){
-	MouseEvent savedMouseEvent = currentMouseEvent;
-	currentMouseEvent = null;
-	return savedMouseEvent;
-    }
-
-    public MouseEvent getCurrentMouseMovedEvent(){
-	MouseEvent savedMouseMovedEvent = currentMouseMovedEvent;
-	currentMouseMovedEvent = null;
-	return savedMouseMovedEvent;
     }
 }

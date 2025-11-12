@@ -15,9 +15,9 @@ public class SceneTest{
         //makeTestLine();
 	//makeTestLineCut();
 	//makeTestStarBlink();
-        //makeTestRectangles();
+        makeTestRectangles();
 	//doTestPolygonLinesCut();
-	doTestPolygonN();
+	//doTestPolygonN();
 	//doTestTriangle();
 	//doTestDegenerateTriangle();
     }
@@ -74,7 +74,6 @@ public class SceneTest{
 
         while (true){
 	    Thread.sleep(200);
-	    System.out.println("MouseEvent on screen: " + cam.getCurrentMouseEventOnScreen());
 	}
     }
     
