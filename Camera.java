@@ -47,6 +47,10 @@ public class Camera{
 	transformationReset();
     }
 
+    public void turnOff(){
+        screen.dispose();
+    }
+    
     public ZBuffer getZBuffer(){
 	return zBuffer;
     }
