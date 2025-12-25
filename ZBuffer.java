@@ -18,11 +18,17 @@ public class ZBuffer extends Component{
     double D = 0.0;
     Color BackgroundColor = null;
     double BackClipPlaneValue = 1.0;
+    boolean CompareDirectly = true;
 
     public ZBuffer(int w, int h, double d, Color backgroundColor, double backClipPlaneValue){
+        this(w, h, d, backgroundColor, backClipPlaneValue, true);
+    }
+
+    public ZBuffer(int w, int h, double d, Color backgroundColor, double backClipPlaneValue, boolean compareDirectly){
 	W = w; H = h;
 	D = d; BackgroundColor = backgroundColor;
 	BackClipPlaneValue = backClipPlaneValue;
+        CompareDirectly = compareDirectly;
 
 	raster = new RasterPoint[W][H];
 
@@ -82,11 +88,17 @@ public class ZBuffer extends Component{
 
 	if ((rasterPoint.a >= 0) && (rasterPoint.a < W) &&
 	    (rasterPoint.b >= 0) && (rasterPoint.b < H)){
-	    //Use four decimal precision:
-	    double rasterEntryDistance =
-		Math.rint((raster[rasterPoint.a][rasterPoint.b]).distance * 10000.0) / 10000.0;
-	    double rasterPointDistance = Math.rint(rasterPoint.distance * 10000.0) / 10000.0;
-	    if (rasterPointDistance <= rasterEntryDistance){
+	    double rasterEntryDistance = Double.MAX_VALUE;
+            double rasterPointDistance = Double.MAX_VALUE;
+
+            if (CompareDirectly) {
+	      rasterEntryDistance = Util3d.roundToFourDecimals(raster[rasterPoint.a][rasterPoint.b].distance);
+              rasterPointDistance = Util3d.roundToFourDecimals(rasterPoint.distance);
+            } else {
+              rasterEntryDistance = raster[rasterPoint.a][rasterPoint.b].distance == Double.MAX_VALUE ? 1.0 : 0.0;
+              rasterPointDistance = 0.0;
+            }
+	    if (rasterPointDistance < rasterEntryDistance){
 		raster[rasterPoint.a][rasterPoint.b] = rasterPoint;
 	    }
 	} else{
@@ -146,7 +158,7 @@ public class ZBuffer extends Component{
 	float cg = cg0;
 	float cb = cb0;
 	double zBeforeProjection = Z0;
-	Color originalColor = new Color(cr, cg, cb);
+        Color originalColor = new Color(cr, cg, cb);
 	Color fadedColor = Util3d.fadeColorToBackground(originalColor, zBeforeProjection, BackgroundColor, BackClipPlaneValue);
 	
     	int dx = x1 - x0;

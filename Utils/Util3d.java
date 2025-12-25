@@ -726,4 +726,8 @@ public class Util3d{
         fileIn.close();
 	return deserializedObject;
     }
+
+    public static double roundToFourDecimals(double d){
+        return (Math.rint(d * 10000.0)) / 10000.0;
+    }
 }

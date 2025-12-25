@@ -27,7 +27,8 @@ public class Camera{
              w,
              h,
              w/2,
-             h/2);
+             h/2,
+             true);
     }
 
     public Camera(double frontPlaneValue,
@@ -37,7 +38,8 @@ public class Camera{
                   int w,
                   int h,
                   int locationX,
-                  int locationY) throws Exception{
+                  int locationY,
+                  boolean compareDirectly) throws Exception{
 
         if (frontPlaneValue <= 0.0){
             throw new Exception("The value for frontPlaneValue must be positive");
@@ -59,7 +61,7 @@ public class Camera{
             throw new Exception("The values for W and H must be positive");
         }
 
-        zBuffer = new ZBuffer(w, h, Double.MAX_VALUE, Color.black, backPlaneValue);
+        zBuffer = new ZBuffer(w, h, Double.MAX_VALUE, Color.black, backPlaneValue, compareDirectly);
         screen = new Screen(w, h, locationX, locationY);
 
         transformationReset();

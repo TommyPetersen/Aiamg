@@ -2,6 +2,7 @@ package Aiamg;
 
 import java.awt.*;
 import java.io.Serializable;
+import Aiamg.Utils.*;
 
 public class Point3D implements Serializable {
 
@@ -48,9 +49,9 @@ public class Point3D implements Serializable {
 
     public boolean equals(Point3D otherPoint){
 	return
-	    ((int)(x * 10000.0)) == ((int)(otherPoint.x * 10000.0)) &&
-	    ((int)(y * 10000.0)) == ((int)(otherPoint.y * 10000.0)) &&
-	    ((int)(z * 10000.0)) == ((int)(otherPoint.z * 10000.0));
+	    Util3d.roundToFourDecimals(x) == Util3d.roundToFourDecimals(otherPoint.x) &&
+	    Util3d.roundToFourDecimals(y) == Util3d.roundToFourDecimals(otherPoint.y) &&
+            Util3d.roundToFourDecimals(z) == Util3d.roundToFourDecimals(otherPoint.z);
     }
 
     public boolean strictlyLessThan(Point3D otherPoint){
