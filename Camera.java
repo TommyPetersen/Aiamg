@@ -191,17 +191,25 @@ public class Camera{
     }
     
     public <T> void updateScene(ArrayList<T> geoms) throws Exception{
+        updateScene(geoms, ProjectionType.PERSPECTIVE);
+    }
+
+    public <T> void updateScene(ArrayList<T> geoms, ProjectionType projectionType) throws Exception{
         T geom;
 
         Iterator<T> geomsIterator = geoms.iterator();
 
         while (geomsIterator.hasNext()){
             geom = geomsIterator.next();
-            updateScene(geom);
+            updateScene(geom, projectionType);
         }
     }
     
     public <T> void updateScene(T geom) throws Exception{
+        updateScene(geom, ProjectionType.PERSPECTIVE);
+    }
+
+    public <T> void updateScene(T geom, ProjectionType projectionType) throws Exception{
         ArrayList<T> geoms = new ArrayList<T>(){{add(geom);}};
         ArrayList<T> transformedGeoms, clippedGeoms;
         ArrayList<T> granularGeoms;
@@ -211,7 +219,7 @@ public class Camera{
         transformedGeoms = Util3d.transformGeoms(geoms, TransformationMatrix);
         clippedGeoms = Util3d.clipGeoms(transformedGeoms, cameraBoundingVolume);
         granularGeoms = Util3d.ensureGranularity(clippedGeoms, epsilon);
-        projectedGeoms = Util3d.projectGeoms(granularGeoms, ProjectionPlaneValue);
+        projectedGeoms = Util3d.projectGeoms(granularGeoms, ProjectionPlaneValue, projectionType);
         zBuffer.rasterizeGeoms(projectedGeoms, ProjectionWindowWidth, ProjectionWindowHeight);
     }
 

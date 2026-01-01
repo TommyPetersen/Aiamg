@@ -620,8 +620,8 @@ public class CameraTest extends Camera{
 	railDistance = new Line3D(rail1.P0,
 				  rail2.P0).length();
 
-	projectedRail1 = Util3d.projectLine(rail1, ProjectionPlaneValue);
-	projectedRail2 = Util3d.projectLine(rail2, ProjectionPlaneValue);
+	projectedRail1 = Util3d.projectLine(rail1, ProjectionPlaneValue, ProjectionType.PERSPECTIVE);
+	projectedRail2 = Util3d.projectLine(rail2, ProjectionPlaneValue, ProjectionType.PERSPECTIVE);
 	projectedRailDistance1 = new Line3D(projectedRail1.P0,
 					    projectedRail2.P0).length();
 	projectedRailDistance2 = new Line3D(projectedRail1.P1,
@@ -653,8 +653,8 @@ public class CameraTest extends Camera{
 	railDistance = new Line3D(rail1.P0,
 				  rail2.P0).length();
 
-	projectedRail1 = Util3d.projectLine(rail1, ProjectionPlaneValue);
-	projectedRail2 = Util3d.projectLine(rail2, ProjectionPlaneValue);
+	projectedRail1 = Util3d.projectLine(rail1, ProjectionPlaneValue, ProjectionType.PERSPECTIVE);
+	projectedRail2 = Util3d.projectLine(rail2, ProjectionPlaneValue, ProjectionType.PERSPECTIVE);
 	projectedRailDistance1 = new Line3D(projectedRail1.P0,
 					    projectedRail2.P0).length();
 	projectedRailDistance2 = new Line3D(projectedRail1.P1,
