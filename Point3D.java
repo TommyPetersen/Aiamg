@@ -8,6 +8,7 @@ public class Point3D implements Serializable {
 
     public double x, y, z, zBeforeProjection, distanceBeforeProjection;
     public Color color;
+    public Point3D fromPoint;
 
     public Point3D(double _x, double _y, double _z){
 	x = _x;
@@ -16,6 +17,7 @@ public class Point3D implements Serializable {
 	zBeforeProjection = _z;
 	distanceBeforeProjection = Math.sqrt(x * x + y * y + z * z);
 	color = new Color(0.0f, 0.0f, 1.0f);
+        fromPoint = null;
     }
 
     public Point3D(double _x, double _y, double _z, Color _color){
@@ -25,6 +27,7 @@ public class Point3D implements Serializable {
 	zBeforeProjection = _z;
 	distanceBeforeProjection = Math.sqrt(x * x + y * y + z * z);
 	color = _color;
+        fromPoint = null;
     }
 
     public Point3D(double _x, double _y, double _z,
@@ -36,6 +39,19 @@ public class Point3D implements Serializable {
 	zBeforeProjection = _zBeforeProjection;
 	distanceBeforeProjection = _distanceBeforeProjection;
 	color = _color;
+        fromPoint = null;
+    }
+
+    public Point3D(double _x, double _y, double _z,
+		   double _zBeforeProjection, double _distanceBeforeProjection,
+		   Color _color, Point3D _fromPoint){
+	x = _x;
+	y = _y;
+	z = _z;
+	zBeforeProjection = _zBeforeProjection;
+	distanceBeforeProjection = _distanceBeforeProjection;
+	color = _color;
+        fromPoint = _fromPoint;
     }
 
     public Point3D(Point3D otherPoint){
@@ -45,6 +61,7 @@ public class Point3D implements Serializable {
 	zBeforeProjection = otherPoint.zBeforeProjection;
 	distanceBeforeProjection = otherPoint.distanceBeforeProjection;
 	color = otherPoint.color;
+        fromPoint = otherPoint.fromPoint;
     }
 
     public boolean equals(Point3D otherPoint){

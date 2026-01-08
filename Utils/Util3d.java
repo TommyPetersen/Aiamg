@@ -34,6 +34,14 @@ public class Util3d{
                            (1.0 - t) * p0.distanceBeforeProjection + t * p1.distanceBeforeProjection,
                            makeInterpolatedColor(p0.color, p1.color, t));
     }
+
+    public static double distance3D(Point3D p, MetricType metric){
+        if (metric == MetricType.Z_COORD) {
+            return p.z;
+        } else {
+            return Math.sqrt(p.x * p.x + p.y * p.y + p.z * p.z);
+        }
+    }
     
     public static OrderedPair<Line3D> splitLineInTwoHalves(Line3D line) throws Exception{
         Point3D p0 = line.P0;
@@ -676,7 +684,7 @@ public class Util3d{
           distance = p.distance();
         }
 
-        return new Point3D(scalar * p.x, scalar * p.y, scalar * p.z, p.z, distance, p.color);
+        return new Point3D(scalar * p.x, scalar * p.y, scalar * p.z, p.z, distance, p.color, p);
     }
 
     // *** Triangulation ***

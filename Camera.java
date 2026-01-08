@@ -28,7 +28,7 @@ public class Camera{
              h,
              w/2,
              h/2,
-             true);
+             MetricType.EUCLIDEAN);
     }
 
     public Camera(double frontPlaneValue,
@@ -39,7 +39,7 @@ public class Camera{
                   int h,
                   int locationX,
                   int locationY,
-                  boolean compareDirectly) throws Exception{
+                  MetricType metric) throws Exception{
 
         if (frontPlaneValue <= 0.0){
             throw new Exception("The value for frontPlaneValue must be positive");
@@ -61,7 +61,7 @@ public class Camera{
             throw new Exception("The values for W and H must be positive");
         }
 
-        zBuffer = new ZBuffer(w, h, Double.MAX_VALUE, Color.black, backPlaneValue, compareDirectly);
+        zBuffer = new ZBuffer(w, h, Double.MAX_VALUE, Color.black, backPlaneValue, metric);
         screen = new Screen(w, h, locationX, locationY);
 
         transformationReset();

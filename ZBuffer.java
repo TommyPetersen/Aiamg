@@ -18,17 +18,17 @@ public class ZBuffer extends Component{
     double D = 0.0;
     Color BackgroundColor = null;
     double BackClipPlaneValue = 1.0;
-    boolean CompareDirectly = true;
+    MetricType Metric = MetricType.EUCLIDEAN;
 
     public ZBuffer(int w, int h, double d, Color backgroundColor, double backClipPlaneValue){
-        this(w, h, d, backgroundColor, backClipPlaneValue, true);
+        this(w, h, d, backgroundColor, backClipPlaneValue, MetricType.EUCLIDEAN);
     }
 
-    public ZBuffer(int w, int h, double d, Color backgroundColor, double backClipPlaneValue, boolean compareDirectly){
+    public ZBuffer(int w, int h, double d, Color backgroundColor, double backClipPlaneValue, MetricType metric){
 	W = w; H = h;
 	D = d; BackgroundColor = backgroundColor;
 	BackClipPlaneValue = backClipPlaneValue;
-        CompareDirectly = compareDirectly;
+        Metric = metric;
 
 	raster = new RasterPoint[W][H];
 
@@ -87,21 +87,14 @@ public class ZBuffer extends Component{
 	if (rasterPoint == null) return;
 
 	if ((rasterPoint.a >= 0) && (rasterPoint.a < W) &&
-	    (rasterPoint.b >= 0) && (rasterPoint.b < H)){
-	    double rasterEntryDistance = Double.MAX_VALUE;
-            double rasterPointDistance = Double.MAX_VALUE;
+	    (rasterPoint.b >= 0) && (rasterPoint.b < H)) {
+	    double rasterEntryDistance = Util3d.roundToFourDecimals(raster[rasterPoint.a][rasterPoint.b].distance);
+            double rasterPointDistance = Util3d.roundToFourDecimals(rasterPoint.distance);
 
-            if (CompareDirectly) {
-	      rasterEntryDistance = Util3d.roundToFourDecimals(raster[rasterPoint.a][rasterPoint.b].distance);
-              rasterPointDistance = Util3d.roundToFourDecimals(rasterPoint.distance);
-            } else {
-              rasterEntryDistance = raster[rasterPoint.a][rasterPoint.b].distance == Double.MAX_VALUE ? 1.0 : 0.0;
-              rasterPointDistance = 0.0;
-            }
 	    if (rasterPointDistance < rasterEntryDistance){
 		raster[rasterPoint.a][rasterPoint.b] = rasterPoint;
 	    }
-	} else{
+	} else {
 	    System.out.println(">>>ZBuffer > update: WARNING! Discarded point " + rasterPoint.toString());
 	}
     }
@@ -367,9 +360,16 @@ public class ZBuffer extends Component{
 	a = (int) Math.round(((pxt / X) * ((double) (W - 1))));
 	b = (int) Math.round(((pyt / Y) * ((double) (H - 1))));
 	
-	Color fadedColor = Util3d.fadeColorToBackground(point3d.color, point3d.zBeforeProjection, BackgroundColor, BackClipPlaneValue);
+        Color fadedColor = Util3d.fadeColorToBackground(point3d.color, point3d.zBeforeProjection, BackgroundColor, BackClipPlaneValue);
+        double distance = Double.MAX_VALUE;
 
-	RasterPoint newRasterPoint = new RasterPoint(a, b, point3d.distanceBeforeProjection, point3d.color, fadedColor, point3d.zBeforeProjection);
+        if (point3d.fromPoint != null) {
+          distance = Util3d.distance3D(point3d.fromPoint, Metric);
+        } else {
+          distance = Util3d.distance3D(point3d, Metric);
+        }
+
+	RasterPoint newRasterPoint = new RasterPoint(a, b, distance, point3d.color, fadedColor, point3d.zBeforeProjection, point3d);
 
 	return newRasterPoint;
     }
