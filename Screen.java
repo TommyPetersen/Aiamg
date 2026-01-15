@@ -80,7 +80,7 @@ public class Screen extends Frame{
 
           for (int i = 0; i < W; i++){
               for (int j = 0; j < H; j++){
-                      ig.setColor((raster[i][j]).fadedColor);
+                      ig.setColor((raster[i][j]).color);
                       ig.drawLine(i, H - j - 1, i, H - j - 1); //Reversed on y-axis
               }
           }

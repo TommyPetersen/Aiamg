@@ -99,8 +99,8 @@ public class ZBuffer extends Component{
 	}
     }
 
-    public ArrayList<ArrayList<RasterPoint>> midPointLine(int a0, int b0, double D0, Color C0, double Z0,
-							  int a1, int b1, double D1, Color C1, double Z1,
+    public ArrayList<ArrayList<RasterPoint>> midPointLine(int a0, int b0, double D0, Color C0,
+							  int a1, int b1, double D1, Color C1,
 							  boolean includeStartAndEndPixels){
 
 	ArrayList<ArrayList<RasterPoint>> scannedRasterPointsList = new ArrayList<ArrayList<RasterPoint>>();
@@ -108,9 +108,9 @@ public class ZBuffer extends Component{
     	if ((a0 == a1) && (b0 == b1)){
 	    if (includeStartAndEndPixels){
 		if (D0 <= D1){
-		    addRasterPoint(scannedRasterPointsList, new RasterPoint(a0, b0, D0, Util3d.fadeColorToBackground(C0, Z0, BackgroundColor, BackClipPlaneValue)));
+		    addRasterPoint(scannedRasterPointsList, new RasterPoint(a0, b0, D0, C0));
 		} else{
-		    addRasterPoint(scannedRasterPointsList, new RasterPoint(a1, b1, D1, Util3d.fadeColorToBackground(C1, Z1, BackgroundColor, BackClipPlaneValue)));
+		    addRasterPoint(scannedRasterPointsList, new RasterPoint(a1, b1, D1, C1));
 		}
 	    }
 	    return scannedRasterPointsList;
@@ -150,9 +150,7 @@ public class ZBuffer extends Component{
 	float cr = cr0;
 	float cg = cg0;
 	float cb = cb0;
-	double zBeforeProjection = Z0;
         Color originalColor = new Color(cr, cg, cb);
-	Color fadedColor = Util3d.fadeColorToBackground(originalColor, zBeforeProjection, BackgroundColor, BackClipPlaneValue);
 	
     	int dx = x1 - x0;
     	int dy = y1 - y0;
@@ -164,14 +162,14 @@ public class ZBuffer extends Component{
 
 	if (includeStartAndEndPixels){
 	    //Write the start pixel:
-	    if (CASE_I){addRasterPoint(scannedRasterPointsList, new RasterPoint(x, y, D, originalColor, fadedColor, zBeforeProjection));}
-	    else if (CASE_II){addRasterPoint(scannedRasterPointsList, new RasterPoint(y, x, D, originalColor, fadedColor, zBeforeProjection));}
-	    else if (CASE_III){addRasterPoint(scannedRasterPointsList, new RasterPoint(-y, x, D, originalColor, fadedColor, zBeforeProjection));}
-	    else if (CASE_IV){addRasterPoint(scannedRasterPointsList, new RasterPoint(-x, y, D, originalColor, fadedColor, zBeforeProjection));}
-	    else if (CASE_V){addRasterPoint(scannedRasterPointsList, new RasterPoint(-x, -y, D, originalColor, fadedColor, zBeforeProjection));}
-	    else if (CASE_VI){addRasterPoint(scannedRasterPointsList, new RasterPoint(-y, -x, D, originalColor, fadedColor, zBeforeProjection));}
-	    else if (CASE_VII){addRasterPoint(scannedRasterPointsList, new RasterPoint(y, -x, D, originalColor, fadedColor, zBeforeProjection));}
-	    else if (CASE_VIII){addRasterPoint(scannedRasterPointsList, new RasterPoint(x, -y, D, originalColor, fadedColor, zBeforeProjection));}
+	    if (CASE_I){addRasterPoint(scannedRasterPointsList, new RasterPoint(x, y, D, originalColor));}
+	    else if (CASE_II){addRasterPoint(scannedRasterPointsList, new RasterPoint(y, x, D, originalColor));}
+	    else if (CASE_III){addRasterPoint(scannedRasterPointsList, new RasterPoint(-y, x, D, originalColor));}
+	    else if (CASE_IV){addRasterPoint(scannedRasterPointsList, new RasterPoint(-x, y, D, originalColor));}
+	    else if (CASE_V){addRasterPoint(scannedRasterPointsList, new RasterPoint(-x, -y, D, originalColor));}
+	    else if (CASE_VI){addRasterPoint(scannedRasterPointsList, new RasterPoint(-y, -x, D, originalColor));}
+	    else if (CASE_VII){addRasterPoint(scannedRasterPointsList, new RasterPoint(y, -x, D, originalColor));}
+	    else if (CASE_VIII){addRasterPoint(scannedRasterPointsList, new RasterPoint(x, -y, D, originalColor));}
 	}
 
     	//Scan to end pixel:
@@ -201,20 +199,18 @@ public class ZBuffer extends Component{
 	    cr = ((float)(1.0 - t)) * cr0 + ((float)t) * cr1;
 	    cg = ((float)(1.0 - t)) * cg0 + ((float)t) * cg1;
 	    cb = ((float)(1.0 - t)) * cb0 + ((float)t) * cb1;
-	    zBeforeProjection = (1.0 - t) * Z0 + t * Z1;
 	    originalColor = new Color(cr, cg, cb);
-	    fadedColor = Util3d.fadeColorToBackground(originalColor, zBeforeProjection, BackgroundColor, BackClipPlaneValue);
 
 	    //Write the selected pixel closest to the line:
 	    if ((x < x1) || includeStartAndEndPixels){
-		if (CASE_I){addRasterPoint(scannedRasterPointsList, new RasterPoint(x, y, D, originalColor, fadedColor, zBeforeProjection));}
-		else if (CASE_II){addRasterPoint(scannedRasterPointsList, new RasterPoint(y, x, D, originalColor, fadedColor, zBeforeProjection));}
-		else if (CASE_III){addRasterPoint(scannedRasterPointsList, new RasterPoint(-y, x, D, originalColor, fadedColor, zBeforeProjection));}
-		else if (CASE_IV){addRasterPoint(scannedRasterPointsList, new RasterPoint(-x, y, D, originalColor, fadedColor, zBeforeProjection));}
-		else if (CASE_V){addRasterPoint(scannedRasterPointsList, new RasterPoint(-x, -y, D, originalColor, fadedColor, zBeforeProjection));}
-		else if (CASE_VI){addRasterPoint(scannedRasterPointsList, new RasterPoint(-y, -x, D, originalColor, fadedColor, zBeforeProjection));}
-		else if (CASE_VII){addRasterPoint(scannedRasterPointsList, new RasterPoint(y, -x, D, originalColor, fadedColor, zBeforeProjection));}
-		else if (CASE_VIII){addRasterPoint(scannedRasterPointsList, new RasterPoint(x, -y, D, originalColor, fadedColor, zBeforeProjection));}
+		if (CASE_I){addRasterPoint(scannedRasterPointsList, new RasterPoint(x, y, D, originalColor));}
+		else if (CASE_II){addRasterPoint(scannedRasterPointsList, new RasterPoint(y, x, D, originalColor));}
+		else if (CASE_III){addRasterPoint(scannedRasterPointsList, new RasterPoint(-y, x, D, originalColor));}
+		else if (CASE_IV){addRasterPoint(scannedRasterPointsList, new RasterPoint(-x, y, D, originalColor));}
+		else if (CASE_V){addRasterPoint(scannedRasterPointsList, new RasterPoint(-x, -y, D, originalColor));}
+		else if (CASE_VI){addRasterPoint(scannedRasterPointsList, new RasterPoint(-y, -x, D, originalColor));}
+		else if (CASE_VII){addRasterPoint(scannedRasterPointsList, new RasterPoint(y, -x, D, originalColor));}
+		else if (CASE_VIII){addRasterPoint(scannedRasterPointsList, new RasterPoint(x, -y, D, originalColor));}
 	    }
     	}
 	
@@ -307,8 +303,8 @@ public class ZBuffer extends Component{
 		MainRasterPoint =  getExtremumRasterPointOnA(scannedRasterPointsMainLine, ExtremumType.MAXIMUM);
 	    }
 
-	    scanLine = midPointLine(OtherRasterPoint.a, OtherRasterPoint.b, OtherRasterPoint.distance, OtherRasterPoint.originalColor, OtherRasterPoint.zBeforeProjection,
-				    MainRasterPoint.a, MainRasterPoint.b, MainRasterPoint.distance, MainRasterPoint.originalColor, MainRasterPoint.zBeforeProjection,
+	    scanLine = midPointLine(OtherRasterPoint.a, OtherRasterPoint.b, OtherRasterPoint.distance, OtherRasterPoint.color,
+				    MainRasterPoint.a, MainRasterPoint.b, MainRasterPoint.distance, MainRasterPoint.color,
 				    false);
 	    update(scanLine);
 	}
@@ -360,20 +356,13 @@ public class ZBuffer extends Component{
 	a = (int) Math.round(((pxt / X) * ((double) (W - 1))));
 	b = (int) Math.round(((pyt / Y) * ((double) (H - 1))));
 	
-        double zBeforeProjection = point3d.z;
-
-        if (point3d.fromPoint != null) {
-          zBeforeProjection = point3d.fromPoint.z;
-        }
-
-        Color fadedColor = Util3d.fadeColorToBackground(point3d.color, zBeforeProjection, BackgroundColor, BackClipPlaneValue);
         double distance = Util3d.distance3D(point3d, ChosenDistanceType);
 
         if (point3d.fromPoint != null) {
           distance = Util3d.distance3D(point3d.fromPoint, ChosenDistanceType);
         }
 
-	RasterPoint newRasterPoint = new RasterPoint(a, b, distance, point3d.color, fadedColor, zBeforeProjection);
+	RasterPoint newRasterPoint = new RasterPoint(a, b, distance, point3d.color);
 
 	return newRasterPoint;
     }
@@ -427,16 +416,15 @@ public class ZBuffer extends Component{
 	sortedRasterPoint2 = sortedRasterPoints.getThird();
 
 
-	lineOfRasterPointsP0_P1 = midPointLine(sortedRasterPoint0.a, sortedRasterPoint0.b, sortedRasterPoint0.distance, sortedRasterPoint0.originalColor, sortedRasterPoint0.zBeforeProjection,
-					       sortedRasterPoint1.a, sortedRasterPoint1.b, sortedRasterPoint1.distance, sortedRasterPoint1.originalColor, sortedRasterPoint1.zBeforeProjection,
+	lineOfRasterPointsP0_P1 = midPointLine(sortedRasterPoint0.a, sortedRasterPoint0.b, sortedRasterPoint0.distance, sortedRasterPoint0.color,
+					       sortedRasterPoint1.a, sortedRasterPoint1.b, sortedRasterPoint1.distance, sortedRasterPoint1.color,
 					       true);
-	lineOfRasterPointsP1_P2 = midPointLine(sortedRasterPoint1.a, sortedRasterPoint1.b, sortedRasterPoint1.distance, sortedRasterPoint1.originalColor, sortedRasterPoint1.zBeforeProjection,
-					       sortedRasterPoint2.a, sortedRasterPoint2.b, sortedRasterPoint2.distance, sortedRasterPoint2.originalColor, sortedRasterPoint2.zBeforeProjection,
+	lineOfRasterPointsP1_P2 = midPointLine(sortedRasterPoint1.a, sortedRasterPoint1.b, sortedRasterPoint1.distance, sortedRasterPoint1.color,
+					       sortedRasterPoint2.a, sortedRasterPoint2.b, sortedRasterPoint2.distance, sortedRasterPoint2.color,
 					       true);
-	lineOfRasterPointsP0_P2 = midPointLine(sortedRasterPoint0.a, sortedRasterPoint0.b, sortedRasterPoint0.distance, sortedRasterPoint0.originalColor, sortedRasterPoint0.zBeforeProjection,
-					       sortedRasterPoint2.a, sortedRasterPoint2.b, sortedRasterPoint2.distance, sortedRasterPoint2.originalColor, sortedRasterPoint2.zBeforeProjection,
+	lineOfRasterPointsP0_P2 = midPointLine(sortedRasterPoint0.a, sortedRasterPoint0.b, sortedRasterPoint0.distance, sortedRasterPoint0.color,
+					       sortedRasterPoint2.a, sortedRasterPoint2.b, sortedRasterPoint2.distance, sortedRasterPoint2.color,
 					       true);
-
 
 	double determinant = Util3d.determinant(sortedRasterPoint2.a - sortedRasterPoint0.a, sortedRasterPoint2.b - sortedRasterPoint0.b,
 						sortedRasterPoint1.a - sortedRasterPoint0.a, sortedRasterPoint1.b - sortedRasterPoint0.b);
@@ -460,8 +448,8 @@ public class ZBuffer extends Component{
 	rasterPoint0 = convertPoint3DToRasterPoint(line.P0, X, Y);
 	rasterPoint1 = convertPoint3DToRasterPoint(line.P1, X, Y);
 
-	listOfScannedRasterPoints = midPointLine(rasterPoint0.a, rasterPoint0.b, rasterPoint0.distance, rasterPoint0.originalColor, rasterPoint0.zBeforeProjection,
-						 rasterPoint1.a, rasterPoint1.b, rasterPoint1.distance, rasterPoint1.originalColor, rasterPoint1.zBeforeProjection,
+	listOfScannedRasterPoints = midPointLine(rasterPoint0.a, rasterPoint0.b, rasterPoint0.distance, rasterPoint0.color,
+						 rasterPoint1.a, rasterPoint1.b, rasterPoint1.distance, rasterPoint1.color,
 						 true);
 	update(listOfScannedRasterPoints);
     }
