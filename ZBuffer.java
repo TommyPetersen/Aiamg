@@ -18,17 +18,17 @@ public class ZBuffer extends Component{
     double D = 0.0;
     Color BackgroundColor = null;
     double BackClipPlaneValue = 1.0;
-    MetricType Metric = MetricType.EUCLIDEAN;
+    DistanceType ChosenDistanceType = DistanceType.EUCLIDEAN;
 
     public ZBuffer(int w, int h, double d, Color backgroundColor, double backClipPlaneValue){
-        this(w, h, d, backgroundColor, backClipPlaneValue, MetricType.EUCLIDEAN);
+        this(w, h, d, backgroundColor, backClipPlaneValue, DistanceType.EUCLIDEAN);
     }
 
-    public ZBuffer(int w, int h, double d, Color backgroundColor, double backClipPlaneValue, MetricType metric){
+    public ZBuffer(int w, int h, double d, Color backgroundColor, double backClipPlaneValue, DistanceType chosenDistanceType){
 	W = w; H = h;
 	D = d; BackgroundColor = backgroundColor;
 	BackClipPlaneValue = backClipPlaneValue;
-        Metric = metric;
+        ChosenDistanceType = chosenDistanceType;
 
 	raster = new RasterPoint[W][H];
 
@@ -360,16 +360,20 @@ public class ZBuffer extends Component{
 	a = (int) Math.round(((pxt / X) * ((double) (W - 1))));
 	b = (int) Math.round(((pyt / Y) * ((double) (H - 1))));
 	
-        Color fadedColor = Util3d.fadeColorToBackground(point3d.color, point3d.zBeforeProjection, BackgroundColor, BackClipPlaneValue);
-        double distance = Double.MAX_VALUE;
+        double zBeforeProjection = point3d.z;
 
         if (point3d.fromPoint != null) {
-          distance = Util3d.distance3D(point3d.fromPoint, Metric);
-        } else {
-          distance = Util3d.distance3D(point3d, Metric);
+          zBeforeProjection = point3d.fromPoint.z;
         }
 
-	RasterPoint newRasterPoint = new RasterPoint(a, b, distance, point3d.color, fadedColor, point3d.zBeforeProjection, point3d);
+        Color fadedColor = Util3d.fadeColorToBackground(point3d.color, zBeforeProjection, BackgroundColor, BackClipPlaneValue);
+        double distance = Util3d.distance3D(point3d, ChosenDistanceType);
+
+        if (point3d.fromPoint != null) {
+          distance = Util3d.distance3D(point3d.fromPoint, ChosenDistanceType);
+        }
+
+	RasterPoint newRasterPoint = new RasterPoint(a, b, distance, point3d.color, fadedColor, zBeforeProjection);
 
 	return newRasterPoint;
     }

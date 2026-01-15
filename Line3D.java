@@ -1,4 +1,5 @@
 package Aiamg;
+import Aiamg.Utils.*;
 
 public class Line3D{
 
@@ -10,7 +11,11 @@ public class Line3D{
     }
 
     public double length(){
-	return new Point3D(P1.x - P0.x, P1.y - P0.y, P1.z - P0.z).distance();
+        return length(DistanceType.EUCLIDEAN);
+    }
+
+    public double length(DistanceType distanceType){
+	return Util3d.distance3D(new Point3D(P1.x - P0.x, P1.y - P0.y, P1.z - P0.z), distanceType);
     }
 
     public String toString(){

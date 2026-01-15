@@ -1,5 +1,5 @@
 package Aiamg.Utils;
 
-public enum MetricType{
+public enum DistanceType{
     EUCLIDEAN, Z_COORD
 }

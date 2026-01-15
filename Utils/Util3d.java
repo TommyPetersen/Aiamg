@@ -30,13 +30,11 @@ public class Util3d{
         return new Point3D((1.0 - t) * p0.x + t * p1.x,
                            (1.0 - t) * p0.y + t * p1.y,
                            (1.0 - t) * p0.z + t * p1.z,
-                           (1.0 - t) * p0.zBeforeProjection + t * p1.zBeforeProjection,
-                           (1.0 - t) * p0.distanceBeforeProjection + t * p1.distanceBeforeProjection,
                            makeInterpolatedColor(p0.color, p1.color, t));
     }
 
-    public static double distance3D(Point3D p, MetricType metric){
-        if (metric == MetricType.Z_COORD) {
+    public static double distance3D(Point3D p, DistanceType distanceType){
+        if (distanceType == DistanceType.Z_COORD) {
             return p.z;
         } else {
             return Math.sqrt(p.x * p.x + p.y * p.y + p.z * p.z);
@@ -667,7 +665,6 @@ public class Util3d{
         double z = p.z;
 
         double scalar = 1.0;
-        double distance = p.z;
 
         if (z <= 0.0){
             throw new Exception("The z-value '" + z + "' is invalid when projecting");
@@ -681,10 +678,9 @@ public class Util3d{
                                                 new Point2D(1.0, projectPlaneValue));
           double crossValue = valueForLine2DCrossLine2D(projectedLine, clipPlaneBoundary);
           scalar = crossValue / p.z;
-          distance = p.distance();
         }
 
-        return new Point3D(scalar * p.x, scalar * p.y, scalar * p.z, p.z, distance, p.color, p);
+        return new Point3D(scalar * p.x, scalar * p.y, scalar * p.z, p.color, p);
     }
 
     // *** Triangulation ***

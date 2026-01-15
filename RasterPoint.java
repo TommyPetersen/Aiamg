@@ -8,7 +8,6 @@ public class RasterPoint{
     public double distance;
     public Color originalColor, fadedColor;
     public double zBeforeProjection;
-    public Point3D fromPoint;
 
     public RasterPoint(){
     }
@@ -24,7 +23,6 @@ public class RasterPoint{
 	originalColor = _color;
 	fadedColor = _color;
 	zBeforeProjection = Double.NaN;
-        fromPoint = null;
     }
 
     public RasterPoint(int _a,
@@ -40,24 +38,6 @@ public class RasterPoint{
 	originalColor = _originalColor;
 	fadedColor = _fadedColor;
 	zBeforeProjection = _zBeforeProjection;
-        fromPoint = null;
-    }
-
-    public RasterPoint(int _a,
-		       int _b,
-		       double _distance,
-		       Color _originalColor,
-		       Color _fadedColor,
-		       double _zBeforeProjection,
-                       Point3D _fromPoint
-		       ){
-	a = _a;
-	b = _b;
-  distance = _distance;
-	originalColor = _originalColor;
-	fadedColor = _fadedColor;
-	zBeforeProjection = _zBeforeProjection;
-        fromPoint = _fromPoint;
     }
 
     public boolean equals(RasterPoint otherRasterPoint){
