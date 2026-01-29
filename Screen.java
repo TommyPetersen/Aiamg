@@ -11,13 +11,13 @@ public class Screen extends Frame{
 
   Color background;
 
-  Screen(int W, int H){
-      this(W, H, W/2, H/2);
+  Screen(int w, int h){
+      this(w, h, w/2, h/2);
   }
 
-  Screen(int W, int H, int locationX, int locationY){
-          this.W = W; this.H = H;
-          setSize(W, H);
+  Screen(int w, int h, int locationX, int locationY){
+          W = w; H = h;
+          setSize(w, h);
           setUndecorated(false);
           setTitle("Aiamg");
           setLocation(locationX, locationY);
@@ -27,17 +27,16 @@ public class Screen extends Frame{
             new WindowAdapter(){public void windowClosing(WindowEvent e){dispose();}}
           );
 
-          image = createImage(W, H);
+          background = Color.lightGray;
+          image = createImage(w, h);
           initScreen();
           Insets in = getInsets();
-          setSize(W, H);
           getGraphics().drawImage(image, in.left, in.top, null);
           Cursor crosshairCursor = new Cursor(Cursor.CROSSHAIR_CURSOR);
           int[] myPixels = new int[16 * 16];
           Image thecursorimage = createImage(new MemoryImageSource(16, 16, myPixels, 0, 16));
           Cursor hiddenCursor = (getToolkit()).createCustomCursor(thecursorimage, new Point(0, 0), "invisiblecursor");
           setCursor(crosshairCursor);
-          background = Color.lightGray;
 
           repaint();
   }
@@ -48,6 +47,11 @@ public class Screen extends Frame{
           sg.setColor(background);
           sg.fillRect(0, 0, W, H);
           sg.dispose();
+  }
+
+  public void resizeScreen(int w, int h) {
+          W = w; H = h;
+          setSize(w, h);
   }
 
   public int getW(){

@@ -39,6 +39,12 @@ public class ZBuffer extends Component{
 	}
     }
 
+    public void resizeRaster(int w, int h){
+        W = w; H = h;
+        
+	raster = new RasterPoint[W][H];
+    }
+
     public RasterPoint[][] clear(){
 	for (int i = 0; i < W; i++){
 	    for (int j = 0; j < H; j++){

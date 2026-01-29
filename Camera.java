@@ -6,6 +6,8 @@ import java.util.*;
 import Aiamg.Utils.*;
 
 public class Camera{
+    protected double FrontPlaneValue = 0.0;
+    protected double BackPlaneValue = 0.0;
     protected double ProjectionPlaneValue = 0.0;
     protected double ProjectionWindowWidth = 0.0;
     protected double ProjectionWindowHeight = 0.0;
@@ -13,6 +15,7 @@ public class Camera{
     protected Matrix4x4 TransformationMatrix = null;
     protected ZBuffer zBuffer;
     protected Screen screen;
+    protected DistanceType distanceType;
 
     public Camera(double frontPlaneValue,
                   double projectionPlaneValue,
@@ -39,7 +42,7 @@ public class Camera{
                   int h,
                   int locationX,
                   int locationY,
-                  DistanceType distanceType) throws Exception{
+                  DistanceType _distanceType) throws Exception{
 
         if (frontPlaneValue <= 0.0){
             throw new Exception("The value for frontPlaneValue must be positive");
@@ -47,24 +50,50 @@ public class Camera{
 
         double backPlaneValue = projectionPlaneValue + 2000.0;
 
-        cameraBoundingVolume = new CameraBoundingVolume(frontPlaneValue,
-                                                        backPlaneValue,
-                                                        projectionPlaneValue,
-                                                        projectionWindowWidth,
-                                                        projectionWindowHeight);
-
+        FrontPlaneValue = frontPlaneValue;
+        BackPlaneValue = backPlaneValue;
         ProjectionPlaneValue = projectionPlaneValue;
         ProjectionWindowWidth = projectionWindowWidth;
         ProjectionWindowHeight = projectionWindowHeight;
+        
+        cameraBoundingVolume = new CameraBoundingVolume(FrontPlaneValue,
+                                                        BackPlaneValue,
+                                                        ProjectionPlaneValue,
+                                                        ProjectionWindowWidth,
+                                                        ProjectionWindowHeight);
 
         if (w <= 0 || h <= 0){
             throw new Exception("The values for W and H must be positive");
         }
 
+        distanceType = _distanceType;
+        
         zBuffer = new ZBuffer(w, h, Double.MAX_VALUE, Color.black, backPlaneValue, distanceType);
         screen = new Screen(w, h, locationX, locationY);
 
         transformationReset();
+    }
+
+    public void resizeWindow(double projectionWindowWidth,
+                             double projectionWindowHeight,
+                             int w,
+                             int h) throws Exception{
+
+        ProjectionWindowWidth = projectionWindowWidth;
+        ProjectionWindowHeight = projectionWindowHeight;
+        
+        cameraBoundingVolume = new CameraBoundingVolume(FrontPlaneValue,
+                                                        BackPlaneValue,
+                                                        ProjectionPlaneValue,
+                                                        ProjectionWindowWidth,
+                                                        ProjectionWindowHeight);
+
+        if (w <= 0 || h <= 0){
+            throw new Exception("The values for W and H must be positive");
+        }
+
+        zBuffer = new ZBuffer(w, h, Double.MAX_VALUE, Color.black, BackPlaneValue, distanceType);
+        screen.resizeScreen(w, h);
     }
 
     public void turnOff(){
