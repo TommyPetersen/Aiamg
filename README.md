@@ -1,5 +1,5 @@
 # Aiamg
-Java 3D graphics from scratch.
+Java 3D graphics from scratch. Though the language is primarily English, some commit messages can be in Danish.
 
 
 ## Java compile
